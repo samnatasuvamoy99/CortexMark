@@ -73,7 +73,7 @@ Brainroute.post("/brain/share",userMiddleware, async (req, res) => {
 
 })
 
-//another user click the brain/share link then they seen that user all contents
+//another user click the brain/share link then they can  seen that user all contents
 Brainroute.get("/brain/:shareLink",async (req, res) => {
 
   const hashlink = req.params.shareLink;
