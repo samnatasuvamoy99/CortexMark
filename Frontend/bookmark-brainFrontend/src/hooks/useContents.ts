@@ -20,7 +20,7 @@ export function useContent(){
     });
 
        }
-       // every 10 sec refresh the contens in the ui
+       // every 10 sec refresh the content in the ui
       useEffect(() =>{
            refresh();
           let interval = setInterval(()=>{
