@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { CrossIcon } from "../icons/Delete";
-import { Button } from "./Button"
+import { Button } from "../components/Button"
 import { Submit } from "../icons/Submit";
-import { Input } from "./input";
+import { Input } from "../components/input";
 import { Logo } from "../icons/Logo";
 import {useRef} from "react"
 import axios from "axios";
@@ -13,7 +13,8 @@ import {BACKEND_URL} from "../Config"
 const ContentType = {
        Youtube: "youtube",
        Twitter: "twitter",
-       Documents: "documents"
+       Documents: "documents",
+       Others:"others"
 } as const;
 type ContentType = typeof ContentType[keyof typeof ContentType];
 
@@ -82,15 +83,15 @@ export function CreateContent({ open, onClose }) {
 
          <div className="flex flex-col justify-center">
 
-            <div className="bg-white p-20 opacity-100 border-2 shadow-2xl rounded-lg ">
+            <div className="bg-white  p-20 opacity-100 border-2 shadow-xl rounded-lg ">
 
                <div className="flex gap-2 text-xl text-purple-500 md-10 pr-6 justify-center items-center  ">
                   <Logo />
-                  <b className="shadow rounded-md border">Second Brain</b>
+                  <b className="shadow rounded-md ">Second Brain</b>
                </div>
 
                <div className="flex justify-end cursor-pointer" onClick={onClose}>
-                  <div >
+                  <div className="rounded-md" >
 
                      <CrossIcon />
                   </div>
@@ -102,12 +103,12 @@ export function CreateContent({ open, onClose }) {
                      <Input reference={TitleRef} placeholder={"Title"} type="text" />
                   </div>
                  
-                  <div>
+                  <div >
                      <Input reference={LinkRef} placeholder={"Link"}  type="Link"/>
                   </div>
-                    <b className="shadow-md border-1  text-purple-600 rounded-md  border-gray-400 "> Select your type</b>
-
-                    <div className="flex gap-2 mt-5">
+                    <b className="shadow border-1  text-purple-600 rounded-md  border-gray-400 "> Select your type</b>
+                      
+                       <div className="flex gap-2 mt-5 mr-4">
 
                       <Button styleType={type ==ContentType.Youtube ?  "primarystyle" : "secondarystyle"} text="Youtube" variant={type ==ContentType.Youtube ?  "primary" : "secondary"} onClick={() =>{
                         Settype(ContentType.Youtube)
@@ -122,11 +123,16 @@ export function CreateContent({ open, onClose }) {
                         Settype(ContentType.Documents)
                       }}></Button>
 
-                     
-
                    </div>
+                  
                </div>
-
+                  
+                   <div className=" mt-2">
+                       <Button styleType={type ==ContentType.Others ?  "primarystyle" : "secondarystyle"} text="Others" variant={type ==ContentType.Others?  "primary" : "secondary"} onClick={() =>{
+                        Settype(ContentType.Others)
+                      }}></Button>
+                     </div>
+                            
                <div className="flex justify-center mt-5">
                   <Button onClick={addcontent} variant="primary" text="Submit" styleType="primarystyle" endIcon={<Submit />} fullwidth={true}  loading={loading}/>
                </div>

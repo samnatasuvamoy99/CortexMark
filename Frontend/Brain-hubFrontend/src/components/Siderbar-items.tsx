@@ -8,7 +8,7 @@ export function SiderbarItem({text , icon}:{
      w-48 pl-3 hover:text-purple-600 transition-all duration-1000">
 
             <div className="p-2">
-                   {icon}
+                   {icon} 
             </div>
 
              <div className="p-2">

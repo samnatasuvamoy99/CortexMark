@@ -4,7 +4,7 @@ import {Siderbar} from"./components/Siderbar";
 import{Signup} from "./Pages/Signup";
 import {Signin} from "./Pages/Signin";
 import {Sharelink} from "./Pages/Sharelinkpage"
-import {CreateContent} from "./components/CreateContent";
+import {CreateContent} from "./Pages/CreateContent";
  import{Dashboard} from "./Pages/Allcontents"
 
 

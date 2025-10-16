@@ -4,7 +4,7 @@ import { Button } from "../components/Button";
 import { ShareIcon } from "../icons/Shareicon";
 import { PlusIcon } from '../icons/PlusIcon';
 import { Card } from "../components/Card"
-import { CreateContent } from "../components/CreateContent"
+import { CreateContent } from "./CreateContent"
 import { useEffect, useState } from "react";
 import { Siderbar } from "../components/Siderbar";
 import { useContent } from "../hooks/useContents";
@@ -29,7 +29,7 @@ export function Dashboard() {
 
     return (
         <div className="flex">
-            <Siderbar />
+           
 
             <div className=" w-screen min-h-screen bg-gray-100 border-1">
 
