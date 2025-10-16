@@ -71,7 +71,7 @@ Contentroute.delete("/deletecontent",userMiddleware, async (req, res) => {
   try {
     await ContentModel.deleteMany({
       _id: contentId,
-      //check actually correct userid content  be had been deleted??
+      //check actually correct userid content had been deleted??
       userId: req.userId
     })
      res.json({
