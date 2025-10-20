@@ -1,8 +1,8 @@
 
 import express from "express";
-import{ContentModel} from "../Db/db.js"
-import{userMiddleware} from "../Middleware/middleware.js"
-export const Contentroute= express.Router();
+import { ContentModel } from "../Db/db.js"
+import { userMiddleware } from "../Middleware/middleware.js"
+export const Contentroute = express.Router();
 
 declare global {
   namespace Express {
@@ -12,11 +12,11 @@ declare global {
   }
 }
 
-Contentroute.post("/addcontent",userMiddleware, async (req, res) => {
+Contentroute.post("/addcontent", userMiddleware, async (req, res) => {
   const type = req.body.type;
-   const title = req.body.title;
+  const title = req.body.title;
   const link = req.body.link;
- 
+
 
   try {
     await ContentModel.create({
@@ -41,7 +41,7 @@ Contentroute.post("/addcontent",userMiddleware, async (req, res) => {
 
 })
 
-Contentroute.get("/viewcontent" ,userMiddleware, async (req, res) => {
+Contentroute.get("/viewcontent", userMiddleware, async (req, res) => {
   const userId = req.userId;
   try {   //@ts-ignore
 
@@ -64,7 +64,7 @@ Contentroute.get("/viewcontent" ,userMiddleware, async (req, res) => {
 })
 
 
-Contentroute.delete("/deletecontent",userMiddleware, async (req, res) => {
+Contentroute.delete("/deletecontent", userMiddleware, async (req, res) => {
 
   const contentId = req.body.contentId;
 
@@ -74,12 +74,12 @@ Contentroute.delete("/deletecontent",userMiddleware, async (req, res) => {
       //check actually correct userid content had been deleted??
       userId: req.userId
     })
-     res.json({
+    res.json({
       message: "delete the content successfully"
     })
   }
   catch (err) {
-     return res.status(503).json({
+    return res.status(503).json({
       message: "Something went to be wrong",
       error: err
     })

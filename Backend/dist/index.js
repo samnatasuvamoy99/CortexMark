@@ -7,14 +7,31 @@ import cors from "cors";
 const app = express();
 app.use(express.json());
 // frontend localhost connection 
+// app.use(cors({
+//   origin:"http://localhost:5173",
+//   credentials: true
+// }));
+// app.use(
+//   cors({
+//     origin: /http:\/\/localhost:\d+/,
+//     credentials: true,
+//   })
+// );
+// 
 app.use(cors({
-    origin: "http://localhost:5173",
-    credentials: true
+    origin: function (origin, callback) {
+        if (!origin)
+            return callback(null, true); // allow extensions
+        if (/^http:\/\/localhost:\d+$/.test(origin))
+            return callback(null, true); // allow localhost
+        callback(new Error("Not allowed by CORS"));
+    },
+    credentials: true, // optional if using cookies
 }));
 app.use("/api/v1/user", Userroute);
 app.use("/api/v1/content", Contentroute);
 app.use("/api/v1/links", Brainroute);
 app.listen(3009, () => {
-    console.log("✅ Server running on http://localhost:3009");
+    console.log("Server running on http://localhost:3009");
 });
 //# sourceMappingURL=index.js.map

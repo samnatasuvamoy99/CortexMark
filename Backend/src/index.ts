@@ -14,12 +14,23 @@ app.use(express.json());
 //   credentials: true
 // }));
 
-app.use(
-  cors({
-    origin: /http:\/\/localhost:\d+/,
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: /http:\/\/localhost:\d+/,
+//     credentials: true,
+//   })
+// );
+
+// 
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true); // allow extensions
+    if (/^http:\/\/localhost:\d+$/.test(origin)) return callback(null, true); // allow localhost
+    callback(new Error("Not allowed by CORS"));
+  },
+  credentials: true, // optional if using cookies
+}));
+
 
 
 
@@ -31,6 +42,6 @@ app.use("/api/v1/links", Brainroute);
 
 
 app.listen(3009,() => {
-  console.log("✅ Server running on http://localhost:3009");
+  console.log("Server running on http://localhost:3009");
 });
 

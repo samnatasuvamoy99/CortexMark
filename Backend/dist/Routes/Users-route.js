@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import express from "express";
 export const Userroute = express.Router();
 Userroute.post("/signup", async (req, res) => {
-    //zod validation  // and also using hasing method to hash the password the add the database 
+    //zod validation  // and also using hashing method to hash the password the add the database 
     const username = req.body.username;
     const email = req.body.email;
     const password = req.body.password;

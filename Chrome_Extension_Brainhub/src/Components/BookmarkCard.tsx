@@ -1,3 +1,4 @@
+// 
 import { useState, useRef } from "react";
 import { CrossIcon } from "../Icon/Delete";
 import { Button } from "./Button";
@@ -13,10 +14,11 @@ const ContentType = {
   Documents: "documents",
   Others: "others",
 } as const;
+
 type ContentType = typeof ContentType[keyof typeof ContentType];
 
 interface CreateContentProps {
-  onClose: () => void; 
+  onClose: () => void;
 }
 
 export function CreateContent({ onClose }: CreateContentProps) {
@@ -26,7 +28,7 @@ export function CreateContent({ onClose }: CreateContentProps) {
   const LinkRef = useRef<HTMLInputElement>(null);
   const [type, setType] = useState<ContentType>(ContentType.Youtube);
 
-  async function addContent() {
+  const addContent = async () => {
     const title = TitleRef.current?.value;
     const link = LinkRef.current?.value;
 
@@ -38,78 +40,85 @@ export function CreateContent({ onClose }: CreateContentProps) {
     try {
       setLoading(true);
 
+      // Get token from extension storage
+      const token: string | null = await new Promise((resolve) => {
+        if (typeof chrome !== "undefined" && chrome.storage?.local) {
+          chrome.storage.local.get(["token"], (result) => {
+            resolve(result.token || null);
+          });
+        } else {
+          resolve(localStorage.getItem("token"));
+        }
+      });
+
+      if (!token) {
+        alert("You are not logged in!");
+        setLoading(false);
+        return;
+      }
+
       await axios.post(
         `${BACKEND_URL}/api/v1/content/addcontent`,
-        {
-          type,
-          title,
-          link,
-        },
-        {
-          headers: {
-            Authorization: localStorage.getItem("token"),
-          },
-        }
+        { type, title, link },
+        { headers: { Authorization: `Bearer ${token}` } }
       );
 
-      alert("Your content was added successfully!");
-      onClose(); 
+      alert("Content added successfully!");
+      onClose(); // automatically closes card after submit
     } catch (err: any) {
       console.error("content add error:", err);
       alert(err.response?.data?.message || "Failed to add content. Try again.");
     } finally {
       setLoading(false);
     }
-  }
+  };
 
   return (
-    <div
-      className="w-screen h-screen bg-gray-200 fixed top-0 left-0 flex justify-center items-center"
-    >
-      <div className="bg-white p-10 border-2 shadow-xl rounded-lg relative w-[400px]">
-        {/* Close button */}
-        <div className="absolute top-3 right-3 cursor-pointer" onClick={onClose}>
-          <CrossIcon />
-        </div>
+    <div className="w-full bg-white border shadow-lg rounded-xl p-4 mt-2 relative">
+      {/* Close button */}
+      <div
+        className="absolute top-3 right-3 cursor-pointer"
+        onClick={onClose}
+      >
+        <CrossIcon />
+      </div>
 
-        {/* Header */}
-        <div className="flex gap-2 text-xl text-purple-500 justify-center mb-6">
-          <Logo />
-          <b>Second Brain</b>
-        </div>
+      {/* Header */}
+      <div className="flex gap-2 text-xl text-purple-500 justify-center mb-4">
+        <Logo />
+        <b>Second Brain</b>
+      </div>
 
-      
-        <Input reference={TitleRef} placeholder="Title" type="text" />
-        <Input reference={LinkRef} placeholder="Link" type="text" />
+      {/* Inputs */}
+      <Input reference={TitleRef} placeholder="Title" type="text" />
+      <Input reference={LinkRef} placeholder="Link" type="text" />
 
-   
-        <b className="block text-purple-600 mt-4 mb-2">Select your type:</b>
-
-        <div className="flex flex-wrap gap-2">
-          {Object.values(ContentType).map((ct) => (
-            <Button
-              key={ct}
-              text={ct}
-              variant={type === ct ? "primary" : "secondary"}
-              styleType={type === ct ? "primarystyle" : "secondarystyle"}
-              onClick={() => setType(ct)}
-            />
-          ))}
-        </div>
-
-     
-        <div className="flex justify-center mt-6">
+      {/* Type selection */}
+      <b className="block text-purple-600 mt-3 mb-2">Select your type:</b>
+      <div className="flex flex-wrap gap-2">
+        {Object.values(ContentType).map((ct) => (
           <Button
-            onClick={addContent}
-            variant="primary"
-            text={loading ? "Saving..." : "Submit"}
-            styleType="primarystyle"
-            endIcon={<Submit />}
-            fullwidth={true}
-            loading={loading}
+            key={ct}
+            text={ct}
+            variant={type === ct ? "primary" : "secondary"}
+            styleType={type === ct ? "primarystyle" : "secondarystyle"}
+            onClick={() => setType(ct)}
           />
-        </div>
+        ))}
+      </div>
+
+      {/* Submit */}
+      <div className="flex justify-center mt-4">
+        <Button
+          onClick={addContent}
+          variant="primary"
+          text={loading ? "Saving..." : "Submit"}
+          styleType="primarystyle"
+          endIcon={<Submit />}
+          fullwidth={true}
+          loading={loading}
+        />
       </div>
     </div>
   );
-}    
+}

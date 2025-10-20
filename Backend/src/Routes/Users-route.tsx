@@ -1,37 +1,41 @@
 import { UserModel } from "../Db/db.js";
 import jwt from 'jsonwebtoken';
 import express from "express";
+import { z } from "zod";
+import bcrypt from "bcrypt";
 export const Userroute = express.Router();
 
 
 
- Userroute.post("/signup",async (req, res) => {
-  //zod validation  // and also using hashing method to hash the password the add the database 
-  const username = req.body.username;
-  const email = req.body.email;
-  const password = req.body.password;
+const signupSchema = z.object({
+  username: z.string().min(3, "Username must be at least 3 characters"),
+  email: z.string().email("Invalid email address"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+});
 
-
+Userroute.post("/signup", async (req, res) => {
   try {
+  
+    const parsed = signupSchema.parse(req.body);
+
+
+    const hashedPassword = await bcrypt.hash(parsed.password, 10);
+
+   
     await UserModel.create({
-      username: username,
-      email: email,
-      password: password
-    })
-
-    res.json({
-      message: "user signed up successfully😊"
-    })
-
-  } catch (error) {
-    res.status(504).json({
-      message: "Something went wrong during signup.",
-      error: error
+      username: parsed.username,
+      email: parsed.email,
+      password: hashedPassword,
     });
+
+    res.json({ message: "User signed up successfully 😊" });
+  } catch (error: any) {
+    if (error.name === "ZodError") {
+      return res.status(400).json({ errors: error.errors });
+    }
+    res.status(500).json({ message: "Something went wrong during signup.", error });
   }
-
-})
-
+});
 
 Userroute.post("/signin",async (req, res) => {
 
