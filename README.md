@@ -103,7 +103,7 @@
 ## **Project Structure**
 
 ```
-Chrome_Extension_Brainhub/
+CoertexMark/
 ├── Frontend/                 # React web application
 │   ├── src/
 │   │   ├── components/      # Reusable UI components
