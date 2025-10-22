@@ -223,19 +223,6 @@ Frontend runs on `http://localhost:5173`
 
 ---
 
-## 🎨 **Screenshots**
-
-### **Landing Page**
-![Landing Page](https://via.placeholder.com/800x400/4F46E5/FFFFFF?text=Beautiful+Landing+Page)
-
-### **Dashboard**
-![Dashboard](https://via.placeholder.com/800x400/10B981/FFFFFF?text=Bookmark+Dashboard)
-
-### **Chrome Extension**
-![Extension](https://via.placeholder.com/400x300/F59E0B/FFFFFF?text=Chrome+Extension)
-
----
-
 ## 🔧 **API Endpoints**
 
 ### **Authentication**
@@ -251,25 +238,6 @@ Frontend runs on `http://localhost:5173`
 - `POST /api/v1/links/brain/share` - Generate share link
 - `GET /api/v1/links/brain/:shareLink` - Get shared content
 
----
-
-## 🤝 **Contributing**
-
-We welcome contributions! Please follow these steps:
-
-1. **Fork** the repository
-2. **Create** a feature branch (`git checkout -b feature/amazing-feature`)
-3. **Commit** your changes (`git commit -m 'Add amazing feature'`)
-4. **Push** to the branch (`git push origin feature/amazing-feature`)
-5. **Open** a Pull Request
-
-### **Development Guidelines**
-- Follow TypeScript best practices
-- Use ESLint and Prettier for code formatting
-- Write meaningful commit messages
-- Test your changes thoroughly
-
----
 
 ## 📝 **License**
 
@@ -277,6 +245,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 
 
-
-
-</div>
