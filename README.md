@@ -226,7 +226,7 @@ Frontend runs on `http://localhost:5173`
 
 ---
 
-## 🔧 **API Endpoints**
+##  **API Endpoints**
 
 ### **Authentication**
 - `POST /api/v1/user/signup` - User registration
