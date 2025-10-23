@@ -82,8 +82,11 @@
 - **MongoDB** - Database
 - **Mongoose** - ODM for MongoDB
 - **JWT** - Authentication tokens
+- 
 -**Zod** – A TypeScript-first schema validation library
- -**bcrypt** – A password hashing library. It securely hashes and salts passwords before storing them in the database
+  
+-**bcrypt** – A password hashing library. It securely hashes and salts passwords before storing them in the database
+
 - **CORS** - Cross-origin requests
 
 ### **Chrome Extension**
