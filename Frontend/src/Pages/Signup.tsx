@@ -36,6 +36,7 @@ export function Signup() {
         password,
       });
 
+       console.log(response);
       alert("You have signed up successfully!");
 
       // Redirect to signin page or dashboard
@@ -54,7 +55,7 @@ export function Signup() {
         {/* Logo */}
         <div className="flex gap-2 text-xl text-purple-500 justify-center items-center mb-6">
           <Logo />
-          <b className="shadow rounded-md border px-2">Brain Hub</b>
+          <b className="shadow rounded-md border px-2">CortexMark</b>
         </div>
 
         {/* Inputs */}

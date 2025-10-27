@@ -1,56 +1,68 @@
+
+
 import { Logo } from "../icons/Logo";
-import { useNavigate } from "react-router-dom";
-
-import { useLocation } from "react-router-dom";
-
-
-
+import { useNavigate, useLocation } from "react-router-dom";
+import { motion } from "framer-motion";
+import { useState } from "react";
 
 export function Sharelink() {
-
   const location = useLocation();
   const shareurl = location.state?.shareurl ?? "No link provided";
+  const navigate = useNavigate();
+  const [copied, setCopied] = useState(false);
 
- const navigate = useNavigate();
   async function copyToClipboard() {
     try {
-      await navigator.clipboard.writeText(shareurl); // modern way
-      alert("Copied!");
+      await navigator.clipboard.writeText(shareurl);
+      setCopied(true);
+      setTimeout(() => {
+        setCopied(false);
+        navigate("/dashboard");
+      }, 1200);
     } catch (err) {
       console.error("Failed to copy:", err);
     }
-    navigate("/dashboard");
   }
 
-  return <div className=" w-screen h-screen bg-purple-300 flex justify-center items-center">
-    <div className="w-46 bg-gray-100 min-w-96 h-90 rounded-lg  shadow-lg border border-gray-300  hover-border-2 hover:border-purple-600">
+  return (
+    <div className="w-screen h-screen flex justify-center items-center bg-gradient-to-br from-purple-300 via-purple-200 to-blue-200">
+      <motion.div
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
+        className="min-w-96 bg-white rounded-2xl shadow-lg border border-gray-200 p-8"
+      >
+        <div className="flex items-center justify-center gap-2 text-xl text-purple-600 mb-6">
+          <Logo />
+          <b className="text-blue-500 shadow rounded">CortexMark</b>
+        </div>
 
-      <div className="flex gap-2 text-xl text-purple-500 pt-4 justify-center items-center mr-5 ">
-        <Logo />
-        <b className="shadow rounded-md border">Second Brain</b>
-      </div>
-   
-           <div className="items-center pt-8">
-                 <b  className="flex justify-center"> Copy the link and share </b>
+        <h2 className="text-center text-lg font-semibold text-gray-800">
+          Copy the link and share
+        </h2>
 
-                  
-                    <span className="text-sm text-gray-600 flex justify-center pt-2 break-all">{shareurl}</span>
-                    
-                     <div className="flex justify-center p-8">
-                              <button
+        <div className="mt-3 text-center">
+          <p className="text-sm text-gray-600 break-all bg-gray-100 px-3 py-2 rounded-md shadow-inner">
+            {shareurl}
+          </p>
+        </div>
+
+        <div className="flex justify-center mt-6">
+          <motion.button
+            whileTap={{ scale: 0.9 }}
             onClick={copyToClipboard}
-            className="px-3  shadow-xl  py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600"
-            >
-           Copy
-            
-        </button>
-                    
-                     </div>
-                
-                
-           </div>
-
+            className={`px-4 py-2 text-sm rounded-lg shadow-md transition-all ${
+              copied
+                ? "bg-green-500 text-white"
+                : "bg-blue-500 hover:bg-blue-600 text-white"
+            }`}
+          >
+            {copied ? "Copied!" : "Copy Link"}
+          </motion.button>
+        </div>
+      </motion.div>
     </div>
-
-  </div>
+  );
 }
+
+

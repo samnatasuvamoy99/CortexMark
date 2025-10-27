@@ -1,7 +1,7 @@
 
 type InputProps = {
   placeholder: string;
-  type?:"text" | "email" | "password"|"Link";// restrict allowed types
+  type?:"text" | "email" | "password"|"Link";
   reference?:any;
 };
 

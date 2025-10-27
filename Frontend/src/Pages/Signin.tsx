@@ -161,23 +161,22 @@ export function Signin() {
       setLoading(false);
     }
   };
-  // min-w-[24rem] h-[28rem] p-6
+
   return (
     <div className="h-screen w-screen bg-purple-300 flex justify-center items-center">
       <div className="bg-gray-100 rounded-xl min-w-96 h-90 shadow-lg border p-6">
         {/* Logo */}
         <div className="flex gap-2 text-xl text-purple-500 justify-center items-center mb-6">
           <Logo />
-          <b className="shadow rounded-md border px-2">Brain hub</b>
+          <b className="shadow rounded-md border px-2">CortexMark</b>
         </div>
 
-        {/* Email and Password Inputs */}
         <div className="flex flex-col gap-4 mb-6">
           <Input reference={useremailRef} placeholder="Email" type="text" />
           <Input reference={passwordRef} placeholder="Password" type="password" />
         </div>
 
-        {/* Signin Button */}
+
         <div className="flex flex-col items-center gap-4">
           <Button
             onClick={signin}

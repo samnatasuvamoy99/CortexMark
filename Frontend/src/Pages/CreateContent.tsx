@@ -4,17 +4,17 @@ import { Button } from "../components/Button"
 import { Submit } from "../icons/Submit";
 import { Input } from "../components/input";
 import { Logo } from "../icons/Logo";
-import {useRef} from "react"
+import { useRef } from "react"
 import axios from "axios";
-import {BACKEND_URL} from "../Config"
+import { BACKEND_URL } from "../Config"
 
 
 
 const ContentType = {
-       Youtube: "youtube",
-       Twitter: "twitter",
-       Documents: "documents",
-       Others:"others"
+   Youtube: "youtube",
+   Twitter: "twitter",
+   Documents: "documents",
+   Others: "others"
 } as const;
 type ContentType = typeof ContentType[keyof typeof ContentType];
 
@@ -22,57 +22,57 @@ type ContentType = typeof ContentType[keyof typeof ContentType];
 
 export function CreateContent({ open, onClose }) {
 
-   const [ loading , Setloading] = useState(false);
-   
+   const [loading, Setloading] = useState(false);
+
    const TitleRef = useRef<HTMLInputElement>(null);
    const LinkRef = useRef<HTMLInputElement>(null);
-   const [type , Settype] = useState<ContentType>(ContentType.Youtube)
-  
-  
+   const [type, Settype] = useState<ContentType>(ContentType.Youtube)
+
+
    // backend connection 
 
-  async function addcontent(){
-        const title = TitleRef.current?.value;
-        const link = LinkRef.current?.value;
-           
-        console.log(link);
+   async function addcontent() {
+      const title = TitleRef.current?.value;
+      const link = LinkRef.current?.value;
 
-        if ( !title || !link){
-             alert("please Enter link and title here");
-             return;
-        }
-       
-         try{
-            Setloading(true)
+      console.log(link);
 
-         await axios.post(`${BACKEND_URL}/api/v1/content/addcontent`,{
-              type,
-              title,
-              link
-             
-        },{
-          // header seating
-            headers:{
-               "Authorization":localStorage.getItem("token")
+      if (!title || !link) {
+         alert("please Enter link and title here");
+         return;
+      }
+
+      try {
+         Setloading(true)
+
+         await axios.post(`${BACKEND_URL}/api/v1/content/addcontent`, {
+            type,
+            title,
+            link
+
+         }, {
+            // header seating
+            headers: {
+               "Authorization": localStorage.getItem("token")
             }
-           
-        })
-          
-             alert(" your contents successfully Add Now !!");
-             onClose();
-         }
-           catch(err: any) {
+
+         })
+
+         alert(" your contents successfully Add Now !!");
+         onClose();
+      }
+      catch (err: any) {
 
 
-    console.error("content add error:", err);
+         console.error("content add error:", err);
 
-    alert(err.response?.data?.message || " Contents add  failed. Please try again.");
+         alert(err.response?.data?.message || " Contents add  failed. Please try again.");
 
 
-  } finally {
-    Setloading(false); // stop loading
-  }
-               
+      } finally {
+         Setloading(false); // stop loading
+      }
+
    }
 
    return <div>
@@ -87,7 +87,7 @@ export function CreateContent({ open, onClose }) {
 
                <div className="flex gap-2 text-xl text-purple-500 md-10 pr-6 justify-center items-center  ">
                   <Logo />
-                  <b className="shadow rounded-md ">Second Brain</b>
+                  <b className="shadow rounded text-blue-500 ">CortexMark</b>
                </div>
 
                <div className="flex justify-end cursor-pointer" onClick={onClose}>
@@ -102,39 +102,39 @@ export function CreateContent({ open, onClose }) {
                   <div >
                      <Input reference={TitleRef} placeholder={"Title"} type="text" />
                   </div>
-                 
+
                   <div >
-                     <Input reference={LinkRef} placeholder={"Link"}  type="Link"/>
+                     <Input reference={LinkRef} placeholder={"Link"} type="Link" />
                   </div>
-                    <b className="shadow border-1  text-purple-600 rounded-md  border-gray-400 "> Select your type</b>
-                      
-                       <div className="flex gap-2 mt-5 mr-4">
+                  <b className="shadow border-1  text-purple-600 rounded-md  border-gray-400 "> Select your type</b>
 
-                      <Button styleType={type ==ContentType.Youtube ?  "primarystyle" : "secondarystyle"} text="Youtube" variant={type ==ContentType.Youtube ?  "primary" : "secondary"} onClick={() =>{
+                  <div className="flex gap-2 mt-5 mr-4">
+
+                     <Button styleType={type == ContentType.Youtube ? "primarystyle" : "secondarystyle"} text="Youtube" variant={type == ContentType.Youtube ? "primary" : "secondary"} onClick={() => {
                         Settype(ContentType.Youtube)
-                      }}></Button>
+                     }}></Button>
 
-                      <Button styleType={type ==ContentType.Twitter ?  "primarystyle" : "secondarystyle"} text="Twitter" variant={type ==ContentType.Twitter?  "primary" : "secondary"} onClick={() =>{
+                     <Button styleType={type == ContentType.Twitter ? "primarystyle" : "secondarystyle"} text="Twitter" variant={type == ContentType.Twitter ? "primary" : "secondary"} onClick={() => {
                         Settype(ContentType.Twitter)
-                      }}></Button>
+                     }}></Button>
 
 
-                      <Button styleType={type ==ContentType.Documents ?  "primarystyle" : "secondarystyle"} text="Document" variant={type ==ContentType.Documents?  "primary" : "secondary"} onClick={() =>{
+                     <Button styleType={type == ContentType.Documents ? "primarystyle" : "secondarystyle"} text="Document" variant={type == ContentType.Documents ? "primary" : "secondary"} onClick={() => {
                         Settype(ContentType.Documents)
-                      }}></Button>
+                     }}></Button>
 
-                   </div>
-                  
+                  </div>
+
                </div>
-                  
-                   <div className=" mt-2">
-                       <Button styleType={type ==ContentType.Others ?  "primarystyle" : "secondarystyle"} text="Others" variant={type ==ContentType.Others?  "primary" : "secondary"} onClick={() =>{
-                        Settype(ContentType.Others)
-                      }}></Button>
-                     </div>
-                            
+
+               <div className=" mt-2">
+                  <Button styleType={type == ContentType.Others ? "primarystyle" : "secondarystyle"} text="Others" variant={type == ContentType.Others ? "primary" : "secondary"} onClick={() => {
+                     Settype(ContentType.Others)
+                  }}></Button>
+               </div>
+
                <div className="flex justify-center mt-5">
-                  <Button onClick={addcontent} variant="primary" text="Submit" styleType="primarystyle" endIcon={<Submit />} fullwidth={true}  loading={loading}/>
+                  <Button onClick={addcontent} variant="primary" text="Submit" styleType="primarystyle" endIcon={<Submit />} fullwidth={true} loading={loading} />
                </div>
 
             </div>
