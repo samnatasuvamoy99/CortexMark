@@ -43,15 +43,15 @@ Contentroute.post("/addcontent", userMiddleware, async (req, res) => {
 
 Contentroute.get("/viewcontent", userMiddleware, async (req, res) => {
   const userId = req.userId;
-  try {   //@ts-ignore
+  try {  
 
-    const content = await ContentModel.find({
+    const contents = await ContentModel.find({
       userId: userId
     }).populate("userId", "username")
 
     res.json({
       message: "see my content ! have a nice day",
-      content
+      content:contents
     })
   }
   catch (err) {
@@ -63,26 +63,30 @@ Contentroute.get("/viewcontent", userMiddleware, async (req, res) => {
 
 })
 
+Contentroute.delete("/deletecontent/:contentId", userMiddleware, async (req, res) => {
+  const contentId = req.params.contentId;
+    
+  console.log(contentId);
+  console.log("DELETE request for:", contentId, "by user:", req.userId);
 
-Contentroute.delete("/deletecontent", userMiddleware, async (req, res) => {
-
-  const contentId = req.body.contentId;
 
   try {
-    await ContentModel.deleteMany({
+    const result = await ContentModel.deleteOne({
       _id: contentId,
-      //check actually correct userid content had been deleted??
-      userId: req.userId
-    })
-    res.json({
-      message: "delete the content successfully"
-    })
+      userId: req.userId, 
+    });
+
+    if (result.deletedCount === 0) {
+      return res.status(404).json({ message: "Content not found or not authorized" });
+    }
+
+    res.json({ message: "Deleted content successfully " });
+  } catch (err) {
+    const errorMessage = err instanceof Error ? err.message : String(err);
+    res.status(503).json({
+      message: "Something went wrong while deleting content",
+      error: errorMessage,
+    });
   }
-  catch (err) {
-    return res.status(503).json({
-      message: "Something went to be wrong",
-      error: err
-    })
-  }
-})
+});
 

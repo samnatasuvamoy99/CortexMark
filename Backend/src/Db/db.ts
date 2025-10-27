@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 import {model, Schema} from "mongoose";
 import dotenv from "dotenv";
 dotenv.config();
-import { error } from 'node:console';
 
 //db connection
 async function main(){
@@ -10,7 +9,7 @@ async function main(){
       try{
             await mongoose.connect(process.env.MONGODB_CONNECT_URL as string)
      
-          console.log("monogdb connection successfully 🌏");
+          console.log("monogdb connection successfully ");
       }
     catch(error:any){
           console.log("connection error:" ,error.message);
@@ -25,31 +24,31 @@ const UserSchema = new Schema({
       email:{type:String, unique:true},
       password:String
 })
- export const UserModel= model("User",UserSchema);
+ export const UserModel= model("users",UserSchema);
 
  
  const TagSchema = new Schema({
          title:String
  })
- export const TagModel= model("Tag",TagSchema);
+ export const TagModel= model("tags",TagSchema);
 
 
  const ContentSchema = new Schema({
        title:String,
        type:String,
        link:String,
-       tags:[{type:mongoose.Types.ObjectId , ref:'Tag'}],
-       userId:{type:mongoose.Types.ObjectId , ref:'User' , required:true},
+       tags:[{type:mongoose.Types.ObjectId , ref:'tags'}],
+       userId:{type:mongoose.Types.ObjectId , ref:'users' , required:true},
        createdAt: { type: Date, default: Date.now }
 })
-export const ContentModel = model("Content",ContentSchema);
+export const ContentModel = model("contents",ContentSchema);
 
 
  const LinkSchema = new Schema({
        hash:String,
-       userId:{type:mongoose.Types.ObjectId , ref:'User' , required:true,unique:true}
+       userId:{type:mongoose.Types.ObjectId , ref:'users' , required:true,unique:true}
 })
-export const LinkModel = model("Brainshare",LinkSchema);
+export const LinkModel = model("brainshares",LinkSchema);
 
 
 

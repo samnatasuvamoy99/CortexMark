@@ -6,27 +6,15 @@ import { Brainroute } from './Routes/Link-route.js';
 import cors from "cors";
 const app = express();
 app.use(express.json());
-// frontend localhost connection 
-// app.use(cors({
-//   origin:"http://localhost:5173",
-//   credentials: true
-// }));
-// app.use(
-//   cors({
-//     origin: /http:\/\/localhost:\d+/,
-//     credentials: true,
-//   })
-// );
-// 
 app.use(cors({
     origin: function (origin, callback) {
         if (!origin)
-            return callback(null, true); // allow extensions
+            return callback(null, true);
         if (/^http:\/\/localhost:\d+$/.test(origin))
-            return callback(null, true); // allow localhost
+            return callback(null, true);
         callback(new Error("Not allowed by CORS"));
     },
-    credentials: true, // optional if using cookies
+    credentials: true,
 }));
 app.use("/api/v1/user", Userroute);
 app.use("/api/v1/content", Contentroute);

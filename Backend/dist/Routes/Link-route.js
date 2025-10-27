@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken';
-import { error } from "node:console";
 import express from "express";
 import mongoose from "mongoose";
 import { LinkModel } from "../Db/db.js";
