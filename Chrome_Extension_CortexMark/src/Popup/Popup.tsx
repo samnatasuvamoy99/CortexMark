@@ -12,7 +12,7 @@ export function Popup() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // Check token on popup open (Chrome extension or fallback)
+ 
   useEffect(() => {
     if (typeof chrome !== "undefined" && chrome.storage?.local) {
       chrome.storage.local.get(["token"], (result) => {

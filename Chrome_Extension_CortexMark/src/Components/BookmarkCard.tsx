@@ -86,7 +86,7 @@ export function CreateContent({ onClose }: CreateContentProps) {
       {/* Header */}
       <div className="flex gap-2 text-xl text-purple-500 justify-center mb-4">
         <Logo />
-        <b>Second Brain</b>
+        <b>CortexMark</b>
       </div>
 
       {/* Inputs */}

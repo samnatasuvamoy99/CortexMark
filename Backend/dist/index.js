@@ -6,14 +6,35 @@ import { Brainroute } from './Routes/Link-route.js';
 import cors from "cors";
 const app = express();
 app.use(express.json());
+// app.use(cors({
+//   origin: [
+//     "http://localhost:5173",  // your React dev server (optional)
+//     "chrome-extension://*",   // allow Chrome extensions
+//   ],
+//   methods: ["GET", "POST", "PUT", "DELETE"],
+//   allowedHeaders: ["Content-Type", "Authorization"],
+//   credentials: true
+// }));
 app.use(cors({
-    origin: function (origin, callback) {
+    origin: (origin, callback) => {
+        // ✅ Allow requests with no origin (like mobile apps or curl)
         if (!origin)
             return callback(null, true);
-        if (/^http:\/\/localhost:\d+$/.test(origin))
-            return callback(null, true);
-        callback(new Error("Not allowed by CORS"));
+        // ✅ Allow localhost dev servers and Chrome extensions
+        const allowedOrigins = [
+            /^http:\/\/localhost:\d+$/, // any localhost port
+            /^chrome-extension:\/\//
+        ];
+        if (allowedOrigins.some((regex) => regex.test(origin))) {
+            callback(null, true);
+        }
+        else {
+            console.log("❌ Blocked by CORS:", origin);
+            callback(new Error("Not allowed by CORS"));
+        }
     },
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
 }));
 app.use("/api/v1/user", Userroute);
