@@ -152,7 +152,7 @@ export function Signin() {
       const jwt = response.data.token;
       localStorage.setItem("token", jwt);
 
-      // Redirect the user to dashboard
+   
       navigate("/dashboard");
     } catch (err: any) {
       console.error("Signin error:", err);

@@ -39,8 +39,8 @@ export function Signup() {
        console.log(response);
       alert("You have signed up successfully!");
 
-      // Redirect to signin page or dashboard
-      navigate("/signin"); // You can change to "/dashboard" if auto-login
+     
+      navigate("/signin"); 
     } catch (err: any) {
       console.error("Signup error:", err);
       alert(err.response?.data?.message || "Signup failed. Please try again.");
@@ -48,24 +48,24 @@ export function Signup() {
       setLoading(false);
     }
   };
-// min-w-[24rem] h-[32rem]
+
   return (
     <div className="h-screen w-screen bg-purple-300 flex justify-center items-center">
       <div className="bg-gray-100 rounded-xl shadow-lg border min-w-96 h-90 p-6">
-        {/* Logo */}
+       
         <div className="flex gap-2 text-xl text-purple-500 justify-center items-center mb-6">
           <Logo />
           <b className="shadow rounded-md border px-2">CortexMark</b>
         </div>
 
-        {/* Inputs */}
+
         <div className="flex flex-col gap-3 mb-3">
           <Input reference={usernameRef} placeholder="Username" type="text" />
           <Input reference={emailRef} placeholder="Email" type="text" />
           <Input reference={passwordRef} placeholder="Password" type="password" />
         </div>
 
-        {/* Signup Button */}
+   
         <div className="flex justify-center">
           <Button
             onClick={signup}

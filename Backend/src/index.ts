@@ -11,8 +11,8 @@ app.use(express.json());
 
 // app.use(cors({
 //   origin: [
-//     "http://localhost:5173",  // your React dev server (optional)
-//     "chrome-extension://*",   // allow Chrome extensions
+//     "http://localhost:5173",  
+//     "chrome-extension://*",   
 //   ],
 //   methods: ["GET", "POST", "PUT", "DELETE"],
 //   allowedHeaders: ["Content-Type", "Authorization"],
@@ -22,10 +22,10 @@ app.use(express.json());
 app.use(
   cors({
     origin: (origin, callback) => {
-      // ✅ Allow requests with no origin (like mobile apps or curl)
+     
       if (!origin) return callback(null, true);
 
-      // ✅ Allow localhost dev servers and Chrome extensions
+      
       const allowedOrigins = [
         /^http:\/\/localhost:\d+$/,        // any localhost port
         /^chrome-extension:\/\// 
@@ -34,7 +34,7 @@ app.use(
       if (allowedOrigins.some((regex) => regex.test(origin))) {
         callback(null, true);
       } else {
-        console.log("❌ Blocked by CORS:", origin);
+        console.log(" Blocked by CORS:", origin);
         callback(new Error("Not allowed by CORS"));
       }
     },
