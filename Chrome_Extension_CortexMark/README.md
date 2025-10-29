@@ -3,7 +3,7 @@
 ### Step 1: Download the Extension
 Click below to download the latest version:
 
-👉 [Download Extension ZIP](https://github.com/samnatasuvamoy99/CortexMark/edit/main/Chrome_Extension_CortexMark/README.md)
+👉 [Download Extension ZIP](https://github.com/samnatasuvamoy99/CortexMark/edit/main/Chrome_Extension_CortexMark)
 
 *(If you’re hosting it on GitHub, use the “Download ZIP” link or GitHub Releases.)*
 
