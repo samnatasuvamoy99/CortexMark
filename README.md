@@ -74,6 +74,7 @@
 - **React 19** - Modern UI framework
 - **TypeScript** - Type-safe development
 - **Tailwind CSS** - Utility-first styling
+- **Framer Motion**- handles animations and gestures
 - **Redux Toolkit** - State management
 - **React Router** - Navigation
 - **Axios** - HTTP client
