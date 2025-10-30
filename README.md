@@ -6,16 +6,6 @@
 - **Content Loss**: Favorite videos, tweets, articles get lost in endless feeds
 - **Disorganization**: No centralized place to store and organize digital content
 
-
-#### After creating this platform, I realized that users often have to open it repeatedly just to save their favorite content. Is there any solution I can make as this? 
-
-### **The Solution ?? **
-**CortexMark**  Chrome extension that lets you bookmark content from ANY platform without ever opening those platfrom again an again!
-
-
-### how to download Extension ??
----->>> https://github.com/samnatasuvamoy99/CortexMark/edit/main/Chrome_Extension_CortexMark/README.md
-
 ---
 
 ## 🚀 **What is CortexMark?**
@@ -29,6 +19,15 @@
 
 ### **Core Concept**
 > **"Bookmark Everything, Browse Nothing"** - Save content from all platforms in one place, never open social media apps again!
+
+#### After creating this platform, I realized that users often have to open it repeatedly just to save their favorite content. Is there any solution I can make as this? 
+
+### **The Solution ?? **
+**CortexMark**  Chrome extension that lets you bookmark content from ANY platform without ever opening those platfrom again an again!
+
+
+### how to download Extension ??
+---->>> https://github.com/samnatasuvamoy99/CortexMark/edit/main/Chrome_Extension_CortexMark/README.md
 
 ---
 
